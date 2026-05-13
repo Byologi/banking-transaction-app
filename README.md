@@ -1,73 +1,86 @@
-# React + TypeScript + Vite
+# Banking Transactions - Transaction History
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Frontend Engineer interview assessment: transaction history screen with filters, search, pagination, and modal details.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Transaction list with detail modal
+- Filters: type (all/debit/credit), date range, search by narration
+- Client-side filtering for json-server
+- Pagination with "Load More" and merged pages
+- Filter state preserved in the URL for back/forward navigation
+- Empty and error states
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React + TypeScript + Vite
+- Zustand for filter state
+- React Query for data fetching
+- json-server for mock API
+- Tailwind CSS for styling
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Install dependencies:
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Start the mock API (json-server) in one terminal:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npx json-server db.json --port 3000
 ```
+
+Start the Vite dev server in another terminal:
+
+```bash
+npm run dev
+```
+
+Then open the local URL printed by Vite (for example, http://localhost:5173).
+
+## Scripts
+
+- `npm run dev` - start the Vite dev server
+- `npm run build` - type-check and build
+- `npm run preview` - preview production build
+- `npm run lint` - run ESLint
+
+## API Notes
+
+Expected API format:
+
+```
+GET /api/transactions?type=debit&from=2026-02-01&to=2026-02-10
+```
+
+Response format:
+
+```json
+{
+	"status": "success",
+	"page": 1,
+	"limit": 10,
+	"totalRecords": 27,
+	"totalPages": 3,
+	"data": []
+}
+```
+
+When running locally with json-server, the app applies client-side filtering for `search`, `from`, and `to` because json-server does not implement those query params by default.
+
+## Project Structure
+
+- [src/pages/TransactionsPage.tsx](src/pages/TransactionsPage.tsx) - main page and modal
+- [src/components/FilterBar.tsx](src/components/FilterBar.tsx) - filters and search
+- [src/hooks/useTransactions.ts](src/hooks/useTransactions.ts) - data fetching (infinite query)
+- [src/api/transactionsApi.ts](src/api/transactionsApi.ts) - API access
+- [src/store/transactionStore.ts](src/store/transactionStore.ts) - filter state
+- [db.json](db.json) - mock data for json-server
+
+## Notes
+
+- Ensure json-server is running on port 3000.
+- Search input is debounced to reduce refetch churn during typing.
