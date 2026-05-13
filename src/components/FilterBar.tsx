@@ -1,5 +1,5 @@
 import useTransactionStore from "../store/transactionStore";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 function FilterBar() {
   const { filters, setFilters } =
@@ -7,17 +7,38 @@ function FilterBar() {
 
   const [localSearch, setLocalSearch] =
     useState(filters.search);
+  const isEditingSearchRef = useRef(false);
 
   const handleTypeChange = (
     type: "all" | "debit" | "credit"
   ) => {
-    setFilters({ type });
+    setFilters({ type, page: 1 });
   };
 
   const handleSearch = (value: string) => {
+    isEditingSearchRef.current = true;
     setLocalSearch(value);
-    setFilters({ search: value, page: 1 });
   };
+
+  useEffect(() => {
+    if (filters.search !== localSearch) {
+      if (isEditingSearchRef.current) {
+        return;
+      }
+
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setLocalSearch(filters.search);
+    }
+  }, [filters.search, localSearch]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setFilters({ search: localSearch, page: 1 });
+      isEditingSearchRef.current = false;
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [localSearch, setFilters]);
 
   const handleDateChange = (
     key: "from" | "to",

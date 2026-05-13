@@ -4,7 +4,7 @@
       "id": "TXN1001",
       "reference": "FBN240208001",
       "type": "debit",
-      "amount": 50,
+      "amount": 50.0,
       "currency": "GHS",
       "narration": "Lunch at Papaye Spintex",
       "channel": "POS",
@@ -13,6 +13,62 @@
       "status": "successful",
       "date": "2026-02-08T10:21:00Z",
       "balanceAfter": 12490.75
+    },
+    {
+      "id": "TXN1002",
+      "reference": "FBN240207004",
+      "type": "credit",
+      "amount": 2000.0,
+      "currency": "GHS",
+      "narration": "Monthly Salary",
+      "channel": "BANK_TRANSFER",
+      "counterpartyName": "ACME CORPORATION LTD",
+      "counterpartyAccount": "0021458890",
+      "status": "successful",
+      "date": "2026-02-05T08:00:00Z",
+      "balanceAfter": 12540.75
+    },
+    {
+      "id": "TXN1003",
+      "reference": "FBN240206011",
+      "type": "debit",
+      "amount": 100.0,
+      "currency": "GHS",
+      "narration": "Airtime Purchase MTN",
+      "channel": "MOBILE_APP",
+      "counterpartyName": "MTN Ghana",
+      "counterpartyAccount": "N/A",
+      "status": "successful",
+      "date": "2026-02-06T19:12:45Z",
+      "balanceAfter": 10540.75
+    },
+    {
+      "id": "TXN1004",
+      "reference": "FBN240206015",
+      "type": "debit",
+      "amount": 450.0,
+      "currency": "GHS",
+      "narration": "Transfer to Kwame Asante",
+      "channel": "BANK_TRANSFER",
+      "counterpartyName": "KWAME ASANTE",
+      "counterpartyAccount": "****7781",
+      "status": "pending",
+      "date": "2026-02-06T20:02:12Z",
+      "balanceAfter": 10090.75
+    },
+    {
+      "id": "TXN1005",
+      "reference": "FBN240205022",
+      "type": "debit",
+      "amount": 25.0,
+      "currency": "GHS",
+      "narration": "Uber Ride Accra Mall",
+      "channel": "CARD",
+      "counterpartyName": "UBER BV",
+      "counterpartyAccount": "N/A",
+      "status": "failed",
+      "date": "2026-02-05T21:15:18Z",
+      "balanceAfter": 12565.75
     }
   ]
 }
