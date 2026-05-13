@@ -16,9 +16,7 @@ interface TransactionsResponse {
 export const getTransactions = async (
   filters: TransactionFilters
 ): Promise<TransactionsResponse> => {
-  const params: Record<string, string | number> = {
-    page: filters.page,
-  };
+  const params: Record<string, string | number> = {};
 
   if (filters.type !== "all") {
     params.type = filters.type;
@@ -36,12 +34,19 @@ export const getTransactions = async (
     params.to = filters.to;
   }
 
-  const response = await apiClient.get(
-    "/api/transactions",
-    {
-      params,
-    }
+  const response = await apiClient.get<Transaction[]>(
+    "/transactions",
+    { params }
   );
 
-  return response.data;
+  const records = response.data;
+
+  return {
+    status: "success",
+    page: filters.page,
+    limit: records.length,
+    totalRecords: records.length,
+    totalPages: 1,
+    data: records,
+  };
 };
