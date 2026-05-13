@@ -25,17 +25,7 @@ export const getTransactions = async (
     params.type = filters.type;
   }
 
-  if (filters.search) {
-    params.search = filters.search;
-  }
-
-  if (filters.from) {
-    params.from = filters.from;
-  }
-
-  if (filters.to) {
-    params.to = filters.to;
-  }
+  // json-server does not support search/from/to by default.
 
   params._page = page;
   params._per_page = PAGE_SIZE;

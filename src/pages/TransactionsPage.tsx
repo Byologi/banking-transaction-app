@@ -169,19 +169,21 @@ function TransactionsPage() {
       </h1>
       <FilterBar />
 
-      {filteredTransactions.length === 0 ? (
-        <EmptyState />
-      ) : (
-        <div className="space-y-3">
-          {filteredTransactions.map((tx) => (
-            <TransactionCard
-              key={tx.id}
-              transaction={tx}
-              onClick={(t) => setSelectedTx(t)}
-            />
-          ))}
-        </div>
-      )}
+      <div className="min-h-[420px]">
+        {filteredTransactions.length === 0 ? (
+          <EmptyState />
+        ) : (
+          <div className="space-y-3">
+            {filteredTransactions.map((tx) => (
+              <TransactionCard
+                key={tx.id}
+                transaction={tx}
+                onClick={(t) => setSelectedTx(t)}
+              />
+            ))}
+          </div>
+        )}
+      </div>
 
       {hasNextPage && (
         <div className="mt-6 flex justify-center">
