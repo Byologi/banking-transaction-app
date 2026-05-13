@@ -1,9 +1,7 @@
+import AppRoutes from "./routes/AppRoutes";
+
 function App() {
-  return (
-    <div>
-      <h1>Banking Transaction App</h1>
-    </div>
-  )
+  return <AppRoutes />;
 }
 
-export default App
+export default App;
